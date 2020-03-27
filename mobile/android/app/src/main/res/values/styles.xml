@@ -10,7 +10,7 @@
         </item>
 
         <item name="android:statusBarColor">
-            @color/primary
+            @color/splashscreen_bg
         </item>
     </style>
 
