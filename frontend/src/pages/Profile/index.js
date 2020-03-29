@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { FiPower, FiTrash2 } from 'react-icons/fi';
+import { FiPower, FiTrash2, FiSun, FiMoon } from 'react-icons/fi';
+import { ThemeContext } from 'styled-components';
 
 import api from '../../services/api';
 
-import './styles.css';
+import { Container } from './styles';
 
 import logoImg from '../../assets/logo.svg';
 
-export default function Profile() {
+export default function Profile({ toggleTheme }) {
   const [incidents, setIncidents] = useState([]);
 
   const history = useHistory();
+
+  const { title: themeTitle } = useContext(ThemeContext);
 
   const ongId = localStorage.getItem('ongId');
   const ongName = localStorage.getItem('ongName');
@@ -47,12 +50,15 @@ export default function Profile() {
   }
 
   return (
-    <div className="profile-container">
+    <Container>
       <header>
         <img src={logoImg} alt="Be the Hero"/>
         <span>Bem vinda, {ongName}</span>
 
         <Link className="button" to="/incidents/new">Cadastrar novo caso</Link>
+        <button onClick={toggleTheme} type="button">
+          {themeTitle == 'light' ? <FiMoon size={18} color="#E02041" /> : <FiSun size={18} color="#E02041" />}
+        </button>
         <button onClick={handleLogout} type="button">
           <FiPower size={18} color="#E02041" />
         </button>
@@ -78,6 +84,6 @@ export default function Profile() {
           </li>
         ))}
       </ul>
-    </div>
+    </Container>
   );
 }

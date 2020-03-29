@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { ThemeProvider } from 'styled-components';
 
-import './styles/global.css';
+import * as themes from './styles/themes';
+
+import GlobalStyle from './styles/global';
 
 import Routes from './routes';
 
 function App() {
+  const [theme, setTheme] = useState(themes.dark);
+
+  function toggleTheme() {
+    setTheme(theme.title === 'light' ? themes.dark : themes.light);
+  }
+
   return (
-    <Routes />
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Routes toggleTheme={toggleTheme} />
+    </ThemeProvider>
   );
 }
 
